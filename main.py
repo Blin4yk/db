@@ -13,16 +13,18 @@ try:
     print("Successfully...")
 
     try:
-        with connection.cursor() as cursor:
-            create_table = "CREATE TABLE `people`(id INT AUTO_INCREMENT," \
-                           " name VARCHAR(32), " \
-                           "email VARCHAR(32), " \
-                           "password VARCHAR(32), PRIMARY KEY(id));"
-            cursor.execute(create_table)
+        # with connection.cursor() as cursor:
+        #     create_table = "CREATE TABLE `people`(id INT AUTO_INCREMENT," \
+        #                    " name VARCHAR(32), " \
+        #                    "email VARCHAR(32), " \
+        #                    "password VARCHAR(32), PRIMARY KEY(id));"
+        #     cursor.execute(create_table)
 
     #     Заполнение таблицы
         with connection.cursor() as cursor:
-
+            for i in range(100):
+                cursor.execute(f"INSERT INTO `people`(name, email, password) VALUES ('{i}____{i}', '{i,i,i,i,i,i}@mail.ru','{i,i,i,i,i,i,i,i,i}');")
+                connection.commit()
     finally:
         connection.close()
 
