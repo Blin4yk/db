@@ -1,6 +1,5 @@
 import pymysql.cursors
 from config import host, user, password, db_name
-
 try:
     connection = pymysql.connect(
         host=host,
@@ -23,10 +22,13 @@ try:
     #     Заполнение таблицы
         with connection.cursor() as cursor:
             for i in range(100):
-                cursor.execute(f"INSERT INTO `people`(name, email, password) VALUES ('{i}____{i}', '{i,i,i,i,i,i}@mail.ru','{i,i,i,i,i,i,i,i,i}');")
+                cursor.execute(f"INSERT INTO `people`(name, email, password) VALUES ('{i}____{i}', '{i,i,i,i,i,i}@mail.ru', '{i}');")
                 connection.commit()
     finally:
         connection.close()
 
 except Exception as ex:
     print(f"ERROR... {ex}")
+
+
+
