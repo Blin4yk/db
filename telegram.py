@@ -11,13 +11,6 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API)
 dp = Dispatcher(bot)
 
-# Создание таблицы пользователей телеграмм
-try:
-    with connect.connection.cursor() as cursor:
-        cursor.execute("CREATE TABLE `telegram`(id INT(11), name VARCHAR(32), time_request DATETIME, url_account VARCHAR(32),premium VARCHAR(32), usernm VARCHAR(32), PRIMARY KEY(id)")
-except Exception as ex:
-    print(ex)
-
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     await message.reply('Hello')
@@ -30,6 +23,11 @@ async def info(msg: types.Message):
                      f"URL: {msg.from_user.url}\n"
                      f"Premium: {msg.from_user.is_premium}\n"
                      f"Username: @{msg.from_user.username}")
-
+    try:
+        with connect.connection.cursor() as cursor:
+            cursor.execute(f"INSERT INTO `ttt`(id, name, url_account, premium, usernm) VALUES ({msg.from_user.id},{msg.from_user.first_name},'{msg.from_user.url}','{msg.from_user.is_premium}','{msg.from_user.username}');")
+            connect.connection.commit()
+    except Exception as ex:
+        print(ex)
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
