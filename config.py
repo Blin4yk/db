@@ -1,4 +1,5 @@
 host = "localhost"
 user = "root"
 password = "root"
-db_name = "first"
+db_name = "telegram_game"
+count = 0
