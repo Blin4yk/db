@@ -6,12 +6,14 @@ class Money:
             cursor.execute(f"UPDATE `gamers` SET money = money + {money_value} WHERE id_user = {id};")
             connection.commit()
 
+# Баланс игрока
 def balance(id):
     with connection.cursor() as cursor:
         cursor.execute(f"SELECT money FROM `gamers` WHERE id_user = {id}")
         money_value = cursor.fetchone()
         return money_value['money']
 
+# Таблица лидеров
 def leaders(id):
     table_leaders = ""
     with connection.cursor() as cursor:

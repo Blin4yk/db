@@ -17,9 +17,11 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API)
 dp = Dispatcher(bot)
 
-buttons = ["Лидеры","Испытать удачу","Магазин","Тап ₽"]
+# Кнопки
+buttons = ["Испытать удачу","Магазин","Тап ₽"]
 kb = ReplyKeyboardMarkup(resize_keyboard=True).add(*buttons)
 
+# CallBack кнопки
 callback_kb = types.InlineKeyboardMarkup()
 callback_kb.add(types.InlineKeyboardButton(text="Лидеры", callback_data="leaders"))
 
@@ -54,9 +56,7 @@ async def tap(msg: types.Message):
 
         else:
             results.Money(msg.from_user.id, value * 10)
-            await bot.send_photo(msg.chat.id, lucky_value, caption=f'О повезло повезло начислено {value*10}, в сундуке {results.balance(msg.from_user.id)} монет')
-    elif msg.text == "Лидеры":
-        pass
+            await bot.send_photo(msg.chat.id, lucky_value, caption=f'О повезло повезло начислено {value*10}, в сундуке {results.balance(msg.from_user.id)} монет', reply_markup=callback_kb)
 
 @dp.callback_query_handler(text="leaders")
 async def leader(cbq: CallbackQuery):
