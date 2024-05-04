@@ -11,7 +11,7 @@ import results
 from random import randint as r
 from time import sleep as t
 from aiogram.dispatcher.filters.state import State, StatesGroup
-API = "6312267659:AAHDbFXldMS3_Q2Wo3a4Ao3JusqTF62LyZs"  # токен бота
+API = "Token"  # токен бота
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
